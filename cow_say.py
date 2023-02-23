@@ -1,5 +1,7 @@
 import cowsay
 import argparse
 
-argparse.ArgumentParser().parse_args()
-cowsay.cow("Hi")
+parser = argparse.ArgumentParser()
+parser.add_argument("message", help="massage that cow says")
+args = parser.parse_args()
+cowsay.cow(args.message)
