@@ -50,8 +50,8 @@ def ask(prompt: str, valid: list[str] = None) -> str:
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dict", help="path to the dictionary")
-parser.add_argument("length", help="length of the word")
+parser.add_argument("dict", help="path to the dictionary", type=str)
+parser.add_argument("length", help="length of the word", type=int)
 args = parser.parse_args()
 if (args.dict[:4] == 'http'):
     http = urllib3.PoolManager()
@@ -63,4 +63,10 @@ else:
     f = open(args.dict, 'r')
     dictionary = f.read().splitlines()
     f.close()
+
+temp = []
+for i in dictionary:
+    if len(i) == args.length:
+        temp.append(i)
+dictionary = temp
 print(gameplay(ask, print, dictionary))
