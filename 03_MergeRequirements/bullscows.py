@@ -63,5 +63,4 @@ else:
     f = open(args.dict, 'r')
     dictionary = f.read().splitlines()
     f.close()
-print(dictionary)
-#print(gameplay(ask, print, ['cat', 'map', 'rap', 'tap']))
+print(gameplay(ask, print, dictionary))
