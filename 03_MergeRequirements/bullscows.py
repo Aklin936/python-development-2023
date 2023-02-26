@@ -64,7 +64,7 @@ def ask(prompt: str, valid: list[str] = None) -> str:
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dict", help="path to the dictionary", type=str)
-parser.add_argument("length", help="length of the word", type=int)
+parser.add_argument("--length", help="length of the word", type=int, default = 5)
 args = parser.parse_args()
 if (args.dict[:4] == 'http'):
     http = urllib3.PoolManager()
