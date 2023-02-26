@@ -24,14 +24,21 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     n = random.randint(0,len(words)-1)
     secret = words[n]
     trycount = 0
+    surrender = False
     while True:
         guess = ask("Введите слово: ", words)
+        if (guess == '-'):
+            surrender = True
+            break
         bullcowsarr = bullscows(guess, secret)
         inform("Быки: {}, Коровы: {}", bullcowsarr[0], bullcowsarr[1])
         trycount += 1
         if bullcowsarr[0] == len(secret):
             break
-    ask(str(trycount))
+    if surrender:
+        print(secret)
+    else:
+        ask(str(trycount))
     return trycount
 
 
@@ -43,6 +50,8 @@ def ask(prompt: str, valid: list[str] = None) -> str:
         print(prompt)
         while True:
             answer = input()
+            if (answer == '-'):
+                return('-')
             f = False 
             for i in valid:
                 if answer == i:
