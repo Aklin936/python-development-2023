@@ -1,7 +1,8 @@
 import random
 import argparse
 import urllib3
-from cowsay import cowsay
+from cowsay import cowsay, read_dot_cow
+from io import StringIO
 
 def bullscows(guess: str, secret: str) -> (int, int):
     bulls = 0
@@ -17,7 +18,27 @@ def bullscows(guess: str, secret: str) -> (int, int):
 
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print(cowsay("Быки: "+str(bulls)+"Коровы: "+str(cows)))
+    cow = read_dot_cow(StringIO("""
+$the_cow = <<EOC;
+         $thoughts
+          $thoughts
+        .
+               ╱▏▕╲
+             ╱▏▏▏▕▕
+             ▏▏▏▏▕▕
+          ▕╲ ▏▏╲╲╱ ▔╲
+          ▕▕ ╲╲╱ ╱▔▔▔
+           ╲▔▔ ╱▔
+            ▔▔▉╭━┓
+           ╱▔▔┊╯╭┃
+        ╱▔▔┈╭▅┓┊┳╯
+        ▏╯┈┈┗━╯┊╰
+        ╲━╯┊┊┊┊┊┊
+         ▔▔▔╲┊┊┊
+
+EOC
+"""))
+    print(cowsay("Быки: "+str(bulls)+", Коровы: "+str(cows), cowfile=cow))
 
 
 def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
@@ -44,11 +65,32 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
 
 
 def ask(prompt: str, valid: list[str] = None) -> str:
+    cow = read_dot_cow(StringIO("""
+$the_cow = <<EOC;
+         $thoughts
+          $thoughts
+        .
+               ╱▏▕╲
+             ╱▏▏▏▕▕
+             ▏▏▏▏▕▕
+          ▕╲ ▏▏╲╲╱ ▔╲
+          ▕▕ ╲╲╱ ╱▔▔▔
+           ╲▔▔ ╱▔
+            ▔▔▉╭━┓
+           ╱▔▔┊╯╭┃
+        ╱▔▔┈╭▅┓┊┳╯
+        ▏╯┈┈┗━╯┊╰
+        ╲━╯┊┊┊┊┊┊
+         ▔▔▔╲┊┊┊
+
+EOC
+"""))
+
     if valid == None:
-        print(cowsay(prompt))
+        print(cowsay(prompt, cowfile=cow))
         answer = None
     else:
-        print(cowsay(prompt))
+        print(cowsay(prompt, cowfile=cow))
         while True:
             answer = input()
             if (answer == '-'):
