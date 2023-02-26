@@ -1,6 +1,7 @@
 import random
 import argparse
 import urllib3
+from cowsay import cowsay
 
 def bullscows(guess: str, secret: str) -> (int, int):
     bulls = 0
@@ -16,7 +17,7 @@ def bullscows(guess: str, secret: str) -> (int, int):
 
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print("Быки: ", bulls,"Коровы: ", cows)
+    print(cowsay("Быки: "+str(bulls)+"Коровы: "+str(cows)))
 
 
 def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
@@ -44,10 +45,10 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
 
 def ask(prompt: str, valid: list[str] = None) -> str:
     if valid == None:
-        print(prompt)
+        print(cowsay(prompt))
         answer = None
     else:
-        print(prompt)
+        print(cowsay(prompt))
         while True:
             answer = input()
             if (answer == '-'):
