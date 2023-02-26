@@ -15,6 +15,10 @@ def bullscows(guess: str, secret: str) -> (int, int):
     return [bulls, cows]
 
 
+def inform(format_string: str, bulls: int, cows: int) -> None:
+    print("Быки: ", bulls,"Коровы: ", cows)
+
+
 def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     random.seed()
     n = random.randint(0,len(words)-1)
@@ -68,5 +72,6 @@ temp = []
 for i in dictionary:
     if len(i) == args.length:
         temp.append(i)
+
 dictionary = temp
-print(gameplay(ask, print, dictionary))
+print(gameplay(ask, inform, dictionary))
