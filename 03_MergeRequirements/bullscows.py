@@ -1,5 +1,6 @@
 import random
 import argparse
+import urllib3
 
 def bullscows(guess: str, secret: str) -> (int, int):
     bulls = 0
@@ -52,4 +53,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument("dict", help="path to the dictionary")
 parser.add_argument("length", help="length of the word")
 args = parser.parse_args()
-print(gameplay(ask, print, ['cat', 'map', 'rap', 'tap']))
+if (args.dict[:4] == 'http'):
+    http = urllib3.PoolManager()
+    r = http.request('GET', args.dict)
+    dictionary = r.data.splitlines()
+    for i in range(len(dictionary)):
+        dictionary[i] = dictionary[i].decode('UTF-8')
+else:
+    f = open(args.dict, 'r')
+    dictionary = f.read().splitlines()
+    f.close()
+print(dictionary)
+#print(gameplay(ask, print, ['cat', 'map', 'rap', 'tap']))
