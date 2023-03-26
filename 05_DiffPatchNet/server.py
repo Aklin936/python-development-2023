@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import asyncio
 
 clients = {}
@@ -14,6 +15,7 @@ async def chat(reader, writer):
             if q is send:
                 send = asyncio.create_task(reader.readline())
                 for out in clients.values():
+                    print(q.result())
                     if out is not clients[me]:
                         await out.put(f"{me} {q.result().decode().strip()}")
             elif q is receive:
